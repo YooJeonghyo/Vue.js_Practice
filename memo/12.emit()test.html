@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+      <h1>{{text}}</h1>
+      <h1>{{ number }}</h1>
+      <my @ok="change"></my>      
+
+    </div>
+    <script>
+
+       var eventBus = new Vue();
+
+       Vue.component('my', {
+           template: `<div>
+                        <button @click="plz">click</button><p>emit을 통해 상위 컴포넌트의 text의 내용을 변경</p>
+                        <br><br><br><button @click="bus">bus</button> <p>이벤트 버스하여 상위 컴포넌트의 value를 변경</p>                        
+                        </div>`,
+            methods: {
+                plz() {
+                    this.$emit('ok');
+                },
+                bus() {
+                    eventBus.$emit('busline', 100);
+                }
+            }           
+       });
+
+        new Vue({
+            el: '#app',      
+            created() {
+                eventBus.$on('busline', function(value){
+                    console.log(this.number, value); //여기 number가 data에 있는 number가 아니고 그냥 새로 하나 undefined임 
+                    this.number = value;
+                    console.log(this.number, value); 
+                });
+            },      
+            data: {
+                text: '바뀌기 전의 내용',
+                number: 10
+            },
+            methods: {
+                change() {
+                    this.text = '바뀐 후의 내용'
+                },                
+            }
+        });
+    </script>
+</body>
+</html>

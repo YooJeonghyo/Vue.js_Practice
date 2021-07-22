@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터와 메소드</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        {{ nextYear('안녕하세요') }}
+        
+        
+        <script>
+            //data에는 data값 methods에는 함수 등을 넣는다.
+            new Vue({
+                el: '#app',
+                data: {
+                    person: {
+                        name: 'YJH',
+                        age: 27
+                    }                   
+                },
+                methods: {
+                    nextYear: function(greeting) { //함수에 인자를 넣어 매개변수로 반환시킬 수 있다
+                        return greeting + ' ! ' + this.person.name + ' 는 내년에 ' + (this.person.age + 1) + ' 살 입니다';
+                        //this에서 data,methods에 관련된 내용들을 바로 넣어주기 때문에 this.data.person.name으로 작성할 필요가 없다
+                    },
+                    otherMethod() { //함수는 짧게 작성할 수 있다
+                        this.nextYear();
+                    }
+                }
+            })
+        </script>
+    </div>
+    
+</body>
+</html>

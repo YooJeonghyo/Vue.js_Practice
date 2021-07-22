@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이벤트</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        <h1>html문서에 작성한 Vue{{}} 이벤트 처리<br></h1>
+        {{ year }} <br>
+        <button v-on:click="plus">더하기</button>
+        <button v-on:click="minus">빼기</button><br><br>
+
+
+        <h1>onclick 이벤트 Vue로 만들기</h1>
+        <!-- onclick 이벤트를 v-on:click으로 작성-->
+        <button v-on:click="alert">Click Me</button><br><br>
+        <!-- methods에 정의된 alert함수를 가져오게됨-->
+
+        <h1>이벤트수식어<br></h1>
+        <form v-on:submit.prevent="submit">
+            <!--submit이벤트에 prevent를 수식어로 붙혀 더이상 리로드하지 않게됨 
+                원래는 빠르게 리로드되어 console.log('OK')가 엄청빨리 지나가버림-->
+            <input type="text"><br>
+            <button type="submit">Submit</button>
+        </form>
+
+        <script>
+          
+            new Vue({
+                el: '#app',
+                data: {
+                    year: 2021
+
+                },
+                methods: {
+                    alert() {
+                        alert('hello');
+                    },
+                    plus() {
+                        this.year++; //html문서에 작성한 Vue를 실시간으로 제어 가능함
+                    },
+                    minus() {
+                        this.year--;
+                    },
+                    submit() {
+                        alert('submitted');
+                        console.log('OK');
+                    }
+                }
+               
+            })
+        </script>
+    </div>
+    
+</body>
+</html>

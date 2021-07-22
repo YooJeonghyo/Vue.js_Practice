@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-if와 v-show</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+
+        <h1>if else문 사용</h1>
+        <template v-if="show"> <!--한번에 처리하고 싶으면 template태그에 처리할 내용을 넣음-->
+            <div>1</div>
+            <div>2</div>
+            <div>3</div>            
+        </template>       
+        <div v-if="show">Yes</div> <!--값이 false면 아예 렌더링을 안한다-->        
+
+        <div v-else>No</div> <!-- v-if가 true면 Yes를 보여주고 아니면 v-else로 넘어감-->
+        <br>
+        <button @click="toggleShow">Toggle</button>
+        <br><br><br><br>
+
+        <h1>if elseif else문 사용</h1>       
+        <div v-if="(number >= 1) && (number < 3)">if(number >= 1) && (number < 3)</div>
+        <div v-else-if="number === 3">else if(number === 3)</div>
+        <div v-else="number">else</div>
+        <button @click="increaseNumber">Increase</button>  number : {{ number }}
+
+        <h1>v-show</h1> <!-- DOM에서 사라지는것이 아니라 display속성을 사용해서 숨긴다 개발자도구에서 확인가능-->
+        <div v-show="fine">OK</div>
+        <button @click="toggle">toggle2</button>
+
+
+
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                show: true,
+                number: 1,
+                fine: false
+            },
+            methods: {
+                toggleShow() {
+                    this.show = !this.show;
+                },
+                increaseNumber() {
+                    this.number++;
+                },
+                toggle() {
+                    this.fine = !this.fine;
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>

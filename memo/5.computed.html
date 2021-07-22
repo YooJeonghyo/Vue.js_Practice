@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>computed속성</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+
+        <h1>자바스크립트 문법을 통한 연산</h1>
+        {{ number + 1 }}<br> <!-- 간단한 연산 가능함 자바스크립트 문법이 들어갈 수 있음 -->
+        {{ message.split('').reverse().join('') }}<br><!-- String을 split(분리), reverse(뒤집어서), join(재조립)
+                                                        한눈에 알기 어렵다 -->
+        
+        <h1>computed속성 사용</h1>
+        {{ reversedMessage }}<br> <!-- computed로 받아옴 데이터를 받아올 때 처럼 객체의 이름만 적으면 됨 중복적으로 사용가능-->
+        {{ reversedMessage }}<br>
+        {{ reversedMessage }}<br>
+        {{ reversedMessage }}<br>
+
+
+        <h1>methods속성 사용</h1>
+        {{ reversedMessageMethods() }}<br> <!-- methods로 받아옴 함수를 받아오기 때문에 ()를 해줘야 됨-->
+
+        <h1>message값을 바꾸는 methods사용</h1>
+        <button @click="changeMessage">Click</button>
+        <!-- changeMessage()를 통해 message2의 값을 바꾸는 순간 methods와 computed에서 읽고있는 message2의 값도 인식 실시간으로 변경해줌-->
+       
+
+        <!-- methods와 computed의 차이점
+
+            computed : 캐싱을 한다
+                       Vue에 작성된 속성에 접근할 때 이미 계산이 되어 있는 상태로 저장되어있다. 그걸 가져오는거임
+                       값이 변경이 되지 않는한 계속 그 값을 가지고 있는다
+
+            methods : 캐싱을 하지 않는다
+                      생성될 때 값이 반환되는게 아니라 함수를 사용할 때마다 접근해서 계산하게 된다. 
+        
+            -->        
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                number: 1,
+                message: '안녕하세요',
+                message2: 'hello'
+
+            },
+            methods: {
+                reversedMessageMethods() {
+                    return this.message2.split('').reverse().join('')
+                },
+                changeMessage() {
+                    this.message2 = "변경했습니다";
+                }
+            },
+            computed: {
+                reversedMessage() {
+                    return this.message2.split('').reverse().join('')
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>

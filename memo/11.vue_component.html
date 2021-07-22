@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>뷰 컴포넌트</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+</head>
+<body>
+    <h1>전역 컴포넌트</h1>
+    <h3>id='app'</h3>
+    <div id="app">
+        {{ name }}<br>
+        <button @click="changeText">Click</button>
+        <hr>
+        <my-button></my-button><!--컴포넌트를 태그로 만들어서 사용-->
+    </div>
+    <hr><hr>
+    <h3>id='app-1'</h3>
+    <div id="app-1">
+        {{ name }}<br>
+        <button @click="changeText">Click</button>
+        <hr>
+        <my-button></my-button>
+    </div>
+    <br><br><br>
+
+
+    <h1>지역 컴포넌트</h1>
+    <div id="local">
+        <my-button></my-button>
+    </div>
+    
+    <script>
+        //뷰 인스턴스의 data와 함수가 정확하게 같은 경우 컴포넌트로 중복을 없애줄 수 있음
+
+        Vue.component('hello-world', {
+            template: `<div>hello world</div>` //전역으로 컴포넌트 선언
+        });
+
+        //전역으로 컴포넌트 선언
+        Vue.component('my-button',{ //template안에는 html 코드가 들어가게된다
+            template: 
+                `<div> 
+                {{ name }}<br>
+                <hello-world></hello-world> 
+                 <button @click="changeText">Click</button>
+                 </div>`  //하나의 태그안에 모든 html코드가 들어가야한다는 규칙이있다 그래서 div로 묶음
+            ,             //<hello-world>는 전역으로 선언됬기 때문에 다른곳에서 사용가능 
+
+
+            data() { //오브젝트를 사용하게 되면 오브젝트의 값이 변경될 때 중복사용하는 곳의 내용이 다 변경되므로 함수로 선언해야된다 
+                    //만약 컴포넌트를 중복적으로 여러개 사용햇다고 치면 값 하나만 바꾸고 싶은데 전부다 동시에 바뀌어 버린다
+                return {
+                    name: 'appName'
+                }
+            },
+            methods: {
+                changeText() {
+                    this.name = 'appName updated'
+                }
+            }
+        });
+
+       var app = new Vue({
+            el: '#app',
+            data: {
+                name: 'appName'
+            },
+            methods: {
+                changeText() {
+                    this.name = 'appName updated'
+                }
+            }
+        })
+    
+        var app1 = new Vue({
+            el: '#app-1',
+            data: {
+                name: 'appName'
+            },
+            methods: {
+                changeText() {
+                    this.name = 'appName updated'
+                }
+            }
+        })
+
+        var mButton = {
+            template: 
+                `<div> 
+                {{ name }}<br>
+                <hello-world></hello-world> 
+                 <button @click="changeText">Click</button>
+                 </div>` 
+            ,
+            data() {                     
+                return {
+                    name: 'appName'
+                }
+            },
+            methods: {
+                changeText() {
+                    this.name = 'appName updated'
+                }
+            }
+        }
+
+        var local = new Vue({
+            el: '#local',
+            components: {
+                'my-button': mButton
+            }
+        })
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>watch속성</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        {{ message }}<br>
+        <button @click="changeMessage">Click</button><br>
+        {{ updated }}
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'hello',
+                updated: '아니오'
+            },
+            methods: {
+                changeMessage() {
+                    this.message = "변경됨";
+                }
+            },
+            computed: {
+                
+            },
+            watch: { // Vue 인스턴스의 데이터 변경을 관찰하고 이에 반응
+                message(newVal, oldVal) {  //newVal은 변경된 값, oldVal은 기존값
+                    console.log(newVal, oldVal); 
+                    this.updated = '네';
+                }
+            }
+        })
+    </script>
+    
+</body>
+</html>

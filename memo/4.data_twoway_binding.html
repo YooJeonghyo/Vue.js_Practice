@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>양방향 데이터바인딩</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <form v-on:submit.prevent="submit">
+            <!-- input에 내용을 입력하면 미리보기하는 기능을 넣을거임-->
+            <input type="text" :value="text" @keyup="updateText"><br> <!-- v-on: 은 @로 대체가능함-->
+            {{ text }}<br><br>
+            <!-- 양방향 바인딩을 통해 만들때는 v-model / 함수도 필요없음-->
+            <input type="text" v-model="text2"><br>
+            {{ text2 }}<br><br>
+            
+        </form>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+               text: '바꿔보셈',
+               text2: '바꿔보셈2'
+            },
+            methods: {
+               
+                updateText(event) {  //html에 함수선언할 때 인자를 선언하지 않아도 keyup이벤트에서 인자를 자동으로 넣어줌
+                    this.text = event.target.value;
+                    //this.text = 뷰 인스턴스에서 선언한 text데이터, 인자로 받아오는 event는 타이핑되는 키보드값
+                }
+            }
+        })
+    </script>
+</body>
+</html>

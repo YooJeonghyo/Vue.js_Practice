@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클래스와스타일 바인딩</title>
+    <style>
+        .red {
+            color: red;
+        }
+
+        .font-bold {
+            font-weight: bold;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div :class="{ red: isRed, 'font-bold': isBold }">Hello</div> <!--클래스를 바인딩-->
+        <button @click="update">Click</button> 
+        
+        <div :style="{ color: blue, fontSize: size }">Hi</div> <!--스타일을 바인딩-->
+        <div :style="myStyle">Hey</div>  <!-- 인라인방식으로 적용시켜도 되고 객체를 바인딩시켜도 된다.-->
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                isRed: false,  //false면 class에 속성이 안들어가고 true면 들어감
+                isBold: false,
+                blue: 'blue',
+                size: '30px',
+                myStyle: { 
+                    color: 'hotpink', 
+                    fontSize: '25px'
+                }
+            },
+            methods: {
+               update() {
+                   this.isRed = !this.isRed;
+                   this.isBold = !this.isBold; //false를 true로 바꿔서 class 속성을 부여함
+               }                               //다시누르면 true가 false로 바뀜
+            },            
+        })
+    </script>
+    
+</body>
+</html>

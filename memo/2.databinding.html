@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터바인딩</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+</head>
+<body>
+    <div id="app">
+        {{ nextYear('안녕하세요') }}
+        <!-- 'v-bind:속성' 을 ':속성'으로 생략가능 -->
+        <input :type="type" v-bind:value="inputData"> <!--Vue 인스턴스에 있는 data값을 html쪽으로 가져오는 예제
+                                                        v-bind를 통해 해당 el이 지정된 Vue인스턴스에서 바인딩하며
+                                                        왠만한 속성은 바인딩시킬 수 있다-->
+        
+        <a :href="link">유튜브 링크</a>
+        <!-- a 링크 속성에 바인딩 함수를 넣어도 됨-->
+
+        <a :href="getNaverLink('kossiecoder')">vue 공부 링크</a>
+
+        <script>
+            //data에는 data값 methods에는 함수 등을 넣는다.
+            new Vue({
+                el: '#app',
+                data: {
+                    person: {
+                        name: 'YJH',
+                        age: 27
+                    },
+                    inputData: 'hello', //바인딩 시키기위한 속성을 data에 넣어줌
+                    type: 'text',
+                    link: 'https://www.youtube.com/'                   
+                },
+                methods: {
+                    getNaverLink(channel) {
+                        return this.link + channel;
+                    },
+                    nextYear: function(greeting) { //함수에 인자를 넣어 매개변수로 반환시킬 수 있다
+                        return greeting + ' ! ' + this.person.name + ' 는 내년에 ' + (this.person.age + 1) + ' 살 입니다';
+                        //this에서 data,methods에 관련된 내용들을 바로 넣어주기 때문에 this.data.person.name으로 작성할 필요가 없다
+                    },
+                    otherMethod() { //함수는 짧게 작성할 수 있다
+                        this.nextYear();
+                    }
+                }
+            })
+        </script>
+    </div>
+    
+</body>
+</html>
