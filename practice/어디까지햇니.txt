@@ -1,0 +1,25 @@
+app.vue에서 라우터를 이용하여 
+메인화면과 게시판 컴포넌트 간 이동이 되는 상태
+
+
+현재 node router 설정하는 중
+
+첫번째 index.js에서 
+ api/board는 경로를 만들어 주지 않은 상태
+npm run dev로 localhost:3000 접속시
+{message:welcome} 가 잘 출력되는 상태
+
+하나 알아 낸 것
+
+라우트를 설정할 때 다음으로 연결될 라우터 경로를 미리 받아오면 에러발생
+당연한건가?
+
+http://localhost:3000/api/board
+node로 
+apm run dev명령어로 접속시 good이라는 text 정상적으로 잘 출력됨
+
+다음 nodejs mysql 연결 해보면 됨
+
+
+됏다!!!!!!!!!!!!
+
