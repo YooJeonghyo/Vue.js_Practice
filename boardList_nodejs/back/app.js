@@ -3,11 +3,21 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var db = require('./config/db');  //mysql 모듈 호출
+var cors = require('cors'); //교차통신 모듈 호출
 
 var indexRouter = require('./routes/index'); //router 설정파일 호출
 var usersRouter = require('./routes/users'); //router 설정파일 호출
 
+if(!db) {
+  console.log("/config/db.js file not exists");
+  process.exit(1);
+}
+
 var app = express();
+
+var conn = db.init() //db 모듈 커넥션 실행
+db.conn(conn); // db 연결 확인
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,6 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(cors()) //교차통신 적용
 app.use('/', indexRouter); //앱에 설정한 라우터 모듈을 사용할 수 있게 적용
 app.use('/users', usersRouter); //앱에 설정한 라우터 모듈을 사용할 수 있게 적용
 

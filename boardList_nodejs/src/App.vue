@@ -2,9 +2,9 @@
   <div id="app">
     <!-- 추가된 헤더 컴포넌트 사용 -->
     <Header />
-    
-    <router-view/>
-	
+    <div class="container">
+      <router-view/>
+    </div>	
     <!-- 추가된 풋터 컴포넌트 사용 -->
     <Footer />
   </div>
@@ -24,7 +24,7 @@ export default {
 }
 </script>
 
-//css 수정
+
 <style>
 html,body{padding:0; margin:0;}
 #app {
