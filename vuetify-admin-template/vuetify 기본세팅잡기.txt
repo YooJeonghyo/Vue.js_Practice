@@ -1,0 +1,114 @@
+1. vue create '프로젝트명' 으로 vue-cli 프로젝트 설치
+   이 때 꼭 Vue2로 설치를 해야함(지금 Vue3에 대한 Vuetufy는 개발중이라고 한다)
+   Default로 설치를 하였음
+
+
+2. npm i -S vue-router 명령어로 vueRouter설치
+   package.json 확인해보면 설치되있음
+
+
+3.router 디렉토리 하위에 index.js 파일 생성하여 router 잡아주기
+  라우팅할 컴포넌트 있으면 import시켜서 경로잡기
+  예시
+
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import GridSystem from '@/views/GridSystem'
+import Dashboard from '@/views/Dashboard'
+
+Vue.use(VueRouter)
+
+const routes = [
+    {
+        path: '/',
+        name: 'Dashboard',
+        component: Dashboard
+    },
+    {
+        path: '/grid-system',
+        name: 'GridSystem',
+        component: GridSystem
+    },
+]
+
+const router = new VueRouter({
+    mode: 'history',
+    routes
+})
+
+export default router
+
+
+4. vue add vuetify 명령어로 vuetify로 만들어줌
+   처음에 WARN 뜨는데 그건 그냥 Y로 넘어가면됨
+   그런다음 preset잡으라는게 뜨는데 Default로 만들었음
+
+   설치가 완료되면 완료되었다고 터미널에 뜰거임
+
+   App.vue가 뭐가 바껴있고 main.js에도 vuetify가 import되어 있음
+
+
+
+5. npm run serve로 다시 실행시킴
+   꼭 다시 실행시켜야됨 이전에 열어놓은 vue-cli 있으면 오류남 새로 빌드시킨다음에 vuetify로 만들어야됨
+
+   npm run lint로 한번 잡아주면 App.vue가 뭔가 바뀜
+
+
+
+6. Vuetify 공식 홈페이지에 들어가서 원하는 기능의 template 코드를 카피해옴
+   
+   여기서는 navigator를 가져와서 App.vue에 붙혀주었음 이게 router로 컴포넌트간 이동을 담당함
+   </v-app-bar> 태그 밑에 붙혔는데 이거 위치는 마크업이니깐 보면 알겠지 뭐,,,
+
+
+
+7. 해당 기능에 대한 template말고 script를 카피해와서 붙혀줌
+   Navigator drawers같은경우는 data() 안에 들어있는 코드이기 때문에
+   data(){ return{}} 안에 있는 items코드를 긁어와서 App.vue에 붙혀넣어 주었음
+
+
+
+8. <v-navigation-drawer permanent> 라고 있는데 
+   permanent 속성을 지우고 app으로 바꾸어줌
+   app은 기본레이아웃 컴포넌트로 만들어주는 특수 속성이라고 한다
+
+
+
+
+9. <v-main>안에 있는 <HelloWorld />를 지워주고 <router-view />를 달아준다
+
+
+
+
+10. 생성했던 컴포넌트 메뉴를 등록해준다 아까전에 data쪽에 items 가져온 쪽에 
+      { title: 'Dashboard', icon: 'mdi-view-dashboard', to: '/'},
+      { title: 'GridSystem', icon: 'mdi-view-dashboard', to: '/grid-system'},
+
+    이런식으로 to:  속성을 통해서 router에 path속성 잡아준거랑 연동해준다
+
+
+
+11. 메뉴를 클릭햇을 때 이동할 수 있도록 <v-list-item> 태그안에
+    :to="item.to" 속성을 추가해줌
+
+     <v-list-item
+          v-for="item in items"
+          :key="item.title"
+          link
+          :to="item.to"
+        >
+
+------------------------------------------------------------------------------------------------------------------- 여기까지 네비게이션바 다는법
+
+https://youtu.be/yXJsY8hhyy0
+
+이거 프로젝트에 lint 잡아주는 강의 영상인데 뭔가 잘 안된다
+
+문법좀 더럽다 싶으면 npm run lint명령어로 한번 잡아주자
+
+영상에서는 자동으로 잡아주는 셋팅을 도와줌
+
+   
+
+
