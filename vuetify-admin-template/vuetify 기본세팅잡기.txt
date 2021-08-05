@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 1. vue create '프로젝트명' 으로 vue-cli 프로젝트 설치
    이 때 꼭 Vue2로 설치를 해야함(지금 Vue3에 대한 Vuetufy는 개발중이라고 한다)
    Default로 설치를 하였음
