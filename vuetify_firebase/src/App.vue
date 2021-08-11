@@ -11,6 +11,7 @@
     </v-app-bar>
     <v-navigation-drawer
       v-model="drawer"
+      width="400"
       app
     >
       <Menu :items="site.menu" />
